@@ -4,10 +4,15 @@
 #include <vector>
 #include <algorithm>
 
-Command::Command(std::vector <std::string> arguments, std::map <std::string, std::string> options, std::string rawCommand)
-    : arguments(arguments), options(options), rawCommand(rawCommand)
+Command::Command(std::string command, std::vector <std::string> arguments, std::map <std::string, std::string> options, std::string rawCommand)
+    : command(command), arguments(arguments), options(options), rawCommand(rawCommand)
 {
 
+}
+
+std::string Command::getName()
+{
+    return command;
 }
 
 std::vector <std::string> Command::getArguments()
@@ -23,6 +28,11 @@ std::map <std::string, std::string> Command::getOptions()
 std::string Command::getRawCommand()
 {
     return rawCommand;
+}
+
+std::string Command::getLastCommandInput()
+{
+    return rawCommand.substr(rawCommand.find_last_of(" ") + 1);
 }
 
 std::string Command::getOption(const std::string& optionName)

@@ -31,6 +31,7 @@ public:
     static std::string filterAlnumAndSpace(const std::string& str);
     static std::vector<std::string> split(const std::string& basicString, char i);
     static bool isAlnum(const std::string& str);
+    static bool isUrlValid(const std::string& url);
 };
 
 

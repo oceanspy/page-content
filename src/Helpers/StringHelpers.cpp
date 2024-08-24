@@ -194,3 +194,16 @@ bool StringHelpers::isAlnum(const std::string& str)
 {
        return std::all_of(str.begin(), str.end(), ::isalnum);
 }
+
+bool StringHelpers::isUrlValid(const std::string& url)
+{
+    if (url.empty()) {
+        return false;
+    }
+
+    if (std::regex matchUrl("^(https?|ftp)://[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}(:[0-9]{1,5})?(/.*)?$"); std::regex_match(url, matchUrl)) {
+        return true;
+    }
+
+    return false;
+}

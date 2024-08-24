@@ -22,5 +22,8 @@ add_executable(page_content main.cpp
         src/Command/Command.h
         src/Command/CommandOption.cpp
         src/Command/CommandOption.h
-
+        src/Actions/Get.h
+        src/Actions/Get.cpp
+        src/Actions/Links.h
+        src/Actions/Links.cpp
 )

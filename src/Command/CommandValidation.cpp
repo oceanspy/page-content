@@ -13,6 +13,17 @@ CommandValidation::CommandValidation(CommandOption& commandOption, const int arg
 
 bool CommandValidation::make()
 {
+    // if raw command is not empty, it means that the command has already been validated
+    if (!rawCommand.empty())
+    {
+        return true;
+    }
+
+    if (argc < 2)
+    {
+        throw std::invalid_argument("No command & URL provided");
+    }
+
     std::vector <std::string> tmpCommandArguments;
     for (int i = 1; i < argc; ++i) {
         // Removing the line breaks
@@ -48,6 +59,11 @@ bool CommandValidation::make()
 
             if (!commandOption.isValidOption(option))
             {
+                if (!this->arguments.empty()) {
+                    this->commandName = this->arguments[0];
+                    this->arguments.erase(this->arguments.begin());
+                }
+
                 throw std::invalid_argument("Invalid option: " + option);
             }
 
@@ -70,7 +86,25 @@ bool CommandValidation::make()
         this->arguments.push_back(tmpArgument);
     }
 
+    if (this->arguments.empty() && this->options.empty())
+    {
+        throw std::invalid_argument("No command provided");
+    }
+
+    this->commandName = this->arguments[0];
+    this->arguments.erase(this->arguments.begin());
+
     return true;
+}
+
+bool CommandValidation::isCommandEmpty()
+{
+    return (this->commandName.empty());
+}
+
+std::string CommandValidation::getCommandName()
+{
+    return commandName;
 }
 
 std::vector <std::string> CommandValidation::getCommandArguments()
