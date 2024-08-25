@@ -1,15 +1,20 @@
 #include "Links.h"
 
-Links::Links(IOService& ioService, TxtService& txtService, WebPageService& webPageService, std::string requestId, std::string url)
-    : ioService(ioService), txtService(txtService), webPageService(webPageService), requestId(requestId), url(url)
+Links::Links(IOService& ioService, WebPageEntity& webPageEntity)
+    : ActionAbstract(ioService), ioService(ioService), webPageEntity(webPageEntity)
 {
-
 }
 
 void Links::execute()
 {
+    // Parse the content of the page
+
+
     // Print the result
-    ioService.print("Request ID: " + requestId);
-    ioService.printWithoutLineBreak("URL: ");
-    ioService.print(url);
+    printWebPageInfo(webPageEntity);
+
+    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+
+    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+    ioService.br();
 }

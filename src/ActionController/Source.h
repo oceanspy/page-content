@@ -1,22 +1,20 @@
 #ifndef GET_H
 #define GET_H
 
+#include "ActionAbstract.h"
 #include "ActionInterface.h"
 #include "../IOService/IOService.h"
-#include "../FileStorage/TxtService.h"
-#include "../WebPage/WebPageService.h"
+#include "../WebPage/WebPageEntity.h"
+#include "../Helpers/StringHelpers.h"
 #include "../Helpers/BashStyle.h"
 
-class Source : public ActionInterface {
+class Source : public ActionInterface, public ActionAbstract {
 public:
-    Source(IOService& ioService, TxtService& txtService, WebPageService& webPageService, std::string requestId, std::string url);
+    Source(IOService& ioService, WebPageEntity& webPageEntity);
     void execute() override;
 private:
     IOService& ioService;
-    TxtService& txtService;
-    WebPageService& webPageService;
-    std::string requestId;
-    std::string url;
+    WebPageEntity& webPageEntity;
 };
 
 

@@ -2,20 +2,19 @@
 #define LINKS_H
 
 #include "ActionInterface.h"
+#include "ActionAbstract.h"
 #include "../IOService/IOService.h"
-#include "../FileStorage/TxtService.h"
-#include "../WebPage/WebPageService.h"
+#include "../WebPage/WebPageEntity.h"
+#include "../Helpers/StringHelpers.h"
+#include "../Helpers/BashStyle.h"
 
-class Links : public ActionInterface {
+class Links : public ActionInterface, public ActionAbstract {
 public:
-    Links(IOService& ioService, TxtService& txtService, WebPageService& webPageService, std::string requestId, std::string url);
+    Links(IOService& ioService, WebPageEntity& webPageEntity);
     void execute() override;
 private:
     IOService& ioService;
-    TxtService& txtService;
-    WebPageService& webPageService;
-    std::string requestId;
-    std::string url;
+    WebPageEntity& webPageEntity;
 };
 
 

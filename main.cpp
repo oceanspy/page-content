@@ -30,7 +30,6 @@ int main(int argc, const char *argv[])
         help.commandNotFound();
         return 1;
     }
-
     Command command(commandValidation.getCommandName(),
                     commandValidation.getCommandArguments(),
                     commandValidation.getCommandOptions(),
@@ -44,35 +43,30 @@ int main(int argc, const char *argv[])
         return 0;
     }
 
+    // Loading web page
     WebPageService webPageService(ioService, txtService);
+    std::string url = !command.getArguments().empty()
+                    ? command.getArguments().at(0)
+                    : "";
+    if (!StringHelpers::isUrlValid(url))
+    {
+        ioService.error("Invalid URL");
+        return 1;
+    }
+    WebPageEntity webPageEntity = webPageService.load(url);
+    txtService.load(requestId + "_source");
+    txtService.write({webPageEntity.getBody()});
 
+    // Parse web page and show result
     if (command.getName() == "source")
     {
-        std::string url = !command.getArguments().empty()
-                        ? command.getArguments().at(0)
-                        : "";
-        if (!StringHelpers::isUrlValid(url))
-        {
-            ioService.error("Invalid URL");
-            return 1;
-        }
-
-        Source source = Source(ioService, txtService, webPageService, requestId, url);
+        Source source = Source(ioService, webPageEntity);
         source.execute();
 
         return 0;
     } else if (command.getName() == "links")
     {
-        std::string url = !command.getArguments().empty()
-                        ? command.getArguments().at(0)
-                        : "";
-        if (!StringHelpers::isUrlValid(url))
-        {
-            ioService.error("Invalid URL");
-            return 1;
-        }
-
-        Links links = Links(ioService, txtService, webPageService, requestId, url);
+        Links links = Links(ioService, webPageEntity);
         links.execute();
 
         return 0;

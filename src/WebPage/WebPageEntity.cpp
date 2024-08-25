@@ -30,6 +30,26 @@ void WebPageEntity::setUrl(const std::string& url)
     this->url = url;
 }
 
+void WebPageEntity::setHost(const std::string& host)
+{
+    this->host = host;
+}
+
+void WebPageEntity::setPort(const int& port)
+{
+    this->port = port;
+}
+
+void WebPageEntity::setPath(const std::string& path)
+{
+    this->path = path;
+}
+
+void WebPageEntity::setLocalStorageWebPagePath(const std::filesystem::path& localStorageWebPagePath)
+{
+    this->localStorageWebPagePath = localStorageWebPagePath;
+}
+
 void WebPageEntity::setStatus(const int& status)
 {
     this->status = status;
@@ -73,6 +93,11 @@ const int WebPageEntity::getPort()
 const std::string WebPageEntity::getPath()
 {
     return path;
+}
+
+const std::filesystem::path WebPageEntity::getLocalStorageWebPagePath()
+{
+    return localStorageWebPagePath;
 }
 
 const int WebPageEntity::getStatus()

@@ -32,6 +32,7 @@ WebPageEntity WebPageService::load(std::string url)
 
     httplib::SSLClient cli(host, port);
 
+    // cli.set_follow_location(true);
     httplib::Result res = cli.Get(path);
 
     std::vector<std::pair<std::string, std::string>> headers;

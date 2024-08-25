@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <filesystem>
 
 class WebPageEntity {
 public:
@@ -18,6 +19,7 @@ public:
                         const std::string& errorMessage
                         );
     void setUrl(const std::string& url);
+    void setLocalStorageWebPagePath(const std::filesystem::path& localStorageWebPagePath);
     void setHost(const std::string& host);
     void setPort(const int& port);
     void setPath(const std::string& path);
@@ -28,6 +30,7 @@ public:
     void setErrorMessage(const std::string& errorMessage);
 
     const std::string getUrl();
+    const std::filesystem::path getLocalStorageWebPagePath();
     const std::string getHost();
     const int getPort();
     const std::string getPath();
@@ -38,6 +41,7 @@ public:
     const std::string getErrorMessage();
 private:
     std::string url;
+    std::filesystem::path localStorageWebPagePath;
     std::string host;
     int port;
     std::string path;

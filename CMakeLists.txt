@@ -30,6 +30,8 @@ add_executable(page_content main.cpp
         src/Command/Command.h
         src/Command/CommandOption.cpp
         src/Command/CommandOption.h
+        src/ActionController/ActionAbstract.h
+        src/ActionController/ActionAbstract.cpp
         src/ActionController/Source.h
         src/ActionController/Source.cpp
         src/ActionController/Links.h
