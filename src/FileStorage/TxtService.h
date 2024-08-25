@@ -20,6 +20,8 @@ public:
     void write(std::vector <std::string> data) override;
     void append(std::vector <std::string> data) override;
     void empty() override;
+    [[nodiscard]] std::string getFileName() const;
+    [[nodiscard]] std::filesystem::path getFilePath() const;
 private:
     IOService& ioService;
     std::filesystem::path directoryPath;

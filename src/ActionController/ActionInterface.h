@@ -4,7 +4,7 @@
 class ActionInterface {
 public:
     virtual ~ActionInterface() = default;
-    virtual void run() = 0;
+    virtual void execute() = 0;
 };
 
 #endif //ACTIONINTERFACE_H

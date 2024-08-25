@@ -74,3 +74,13 @@ void TxtService::empty()
     std::ofstream file(filePath, std::ofstream::out);
     file.close();
 }
+
+std::string TxtService::getFileName() const
+{
+    return fileName.string();
+}
+
+std::filesystem::path TxtService::getFilePath() const
+{
+    return filePath;
+}

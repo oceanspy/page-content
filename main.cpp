@@ -57,10 +57,8 @@ int main(int argc, const char *argv[])
             return 1;
         }
 
-        webPageService.load(url);
-
-        Source get = Source(ioService, txtService, requestId, url);
-        get.run();
+        Source source = Source(ioService, txtService, webPageService, requestId, url);
+        source.execute();
 
         return 0;
     } else if (command.getName() == "links")
@@ -74,8 +72,8 @@ int main(int argc, const char *argv[])
             return 1;
         }
 
-        Links links = Links(ioService, txtService, requestId, url);
-        links.run();
+        Links links = Links(ioService, txtService, webPageService, requestId, url);
+        links.execute();
 
         return 0;
     }

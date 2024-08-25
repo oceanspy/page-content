@@ -4,14 +4,16 @@
 #include "ActionInterface.h"
 #include "../IOService/IOService.h"
 #include "../FileStorage/TxtService.h"
+#include "../WebPage/WebPageService.h"
 
 class Source : public ActionInterface {
 public:
-    Source(IOService& ioService, TxtService& txtService, std::string requestId, std::string url);
-    void run() override;
+    Source(IOService& ioService, TxtService& txtService, WebPageService& webPageService, std::string requestId, std::string url);
+    void execute() override;
 private:
-    IOService ioService;
-    TxtService txtService;
+    IOService& ioService;
+    TxtService& txtService;
+    WebPageService& webPageService;
     std::string requestId;
     std::string url;
 };

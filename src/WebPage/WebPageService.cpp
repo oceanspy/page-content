@@ -6,10 +6,10 @@ WebPageService::WebPageService(IOService& ioService, TxtService& txtService)
 
 }
 
-void WebPageService::load(std::string url)
+WebPageEntity WebPageService::load(std::string url)
 {
     // remove http:// or https://
-    int port;
+    int port = 80;
     if (url.find("http://") == 0) {
         url = url.substr(7);
         port = 80;
@@ -32,14 +32,15 @@ void WebPageService::load(std::string url)
 
     httplib::SSLClient cli(host, port);
 
-    if (auto res = cli.Get(path)) {
-        if (res->status == 200) {
-            ioService.print(res->body);
-        } else {
-            ioService.error("HTTP error - Web Page status: " + std::to_string(res->status));
-        }
-    } else {
-        auto err = res.error();
-        ioService.error("HTTP error: " + httplib::to_string(err));
+    httplib::Result res = cli.Get(path);
+
+    std::vector<std::pair<std::string, std::string>> headers;
+    for (auto& header : res->headers) {
+        headers.push_back({header.first, header.second});
     }
+
+    WebPageEntity webPageEntity = WebPageEntity();
+    webPageEntity.setFromHttplib(url, res->status, res->body, headers, res->reason, httplib::to_string(res.error()));
+
+    return webPageEntity;
 }

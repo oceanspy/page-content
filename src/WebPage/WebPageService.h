@@ -3,16 +3,19 @@
 
 #include "../IOService/IOService.h"
 #include "../FileStorage/TxtService.h"
+#include "WebPageEntity.h"
+
+#ifndef CPPHTTPLIB_OPENSSL_SUPPORT
 #define CPPHTTPLIB_OPENSSL_SUPPORT
+#endif
 #include <httplib.h>
-#include <iostream>
 
 #include <string>
 
 class WebPageService {
 public:
     WebPageService(IOService& ioService, TxtService& txtService);
-    void load(std::string url);
+    WebPageEntity load(std::string url);
 private:
     IOService& ioService;
     TxtService& txtService;

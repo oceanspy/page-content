@@ -39,6 +39,8 @@ add_executable(page_content main.cpp
         src/FileStorage/TxtService.cpp
         src/WebPage/WebPageService.h
         src/WebPage/WebPageService.cpp
+        src/WebPage/WebPageEntity.h
+        src/WebPage/WebPageEntity.cpp
 )
 
 # Link the cpp-httplib library
