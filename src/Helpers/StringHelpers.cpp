@@ -207,3 +207,10 @@ bool StringHelpers::isUrlValid(const std::string& url)
 
     return false;
 }
+
+std::string StringHelpers::replaceCharWithChar(const std::string& str, char toReplace, char replaceWith)
+{
+    std::string result = str;
+    std::replace(result.begin(), result.end(), toReplace, replaceWith);
+    return result;
+}

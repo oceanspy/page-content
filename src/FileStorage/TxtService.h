@@ -14,8 +14,8 @@
 class TxtService : public FileDataServiceInterface {
 public:
     explicit TxtService(IOService& ioService, std::filesystem::path& directoryPath);
-    void load(std::filesystem::path fileName) override;
-    bool isFileWritable(std::filesystem::path fileName) override;
+    void load(std::string fileName) override;
+    bool isFileWritable(std::string fileName) override;
     std::vector <std::string> read(std::optional<int> limitOpt) override;
     void write(std::vector <std::string> data) override;
     void append(std::vector <std::string> data) override;
@@ -26,7 +26,7 @@ private:
     IOService& ioService;
     std::filesystem::path directoryPath;
     std::filesystem::path filePath;
-    std::filesystem::path fileName;
+    std::string fileName;
     bool fileWritable = false;
 };
 

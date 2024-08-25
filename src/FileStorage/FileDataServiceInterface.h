@@ -8,8 +8,8 @@
 
 class FileDataServiceInterface {
 public:
-    virtual void load(std::filesystem::path path) = 0;
-    virtual bool isFileWritable(std::filesystem::path path) = 0;
+    virtual void load(std::string fileName) = 0;
+    virtual bool isFileWritable(std::string fileName) = 0;
     virtual std::vector <std::string> read(std::optional<int> limitOpt) = 0;
     virtual void write(std::vector <std::string> data) = 0;
     virtual void append(std::vector <std::string> data) = 0;

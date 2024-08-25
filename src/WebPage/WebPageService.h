@@ -4,6 +4,7 @@
 #include "../IOService/IOService.h"
 #include "../FileStorage/TxtService.h"
 #include "WebPageEntity.h"
+#include "../Helpers/StringHelpers.h"
 
 #ifndef CPPHTTPLIB_OPENSSL_SUPPORT
 #define CPPHTTPLIB_OPENSSL_SUPPORT
@@ -15,7 +16,7 @@
 class WebPageService {
 public:
     WebPageService(IOService& ioService, TxtService& txtService);
-    WebPageEntity load(std::string url);
+    static WebPageEntity load(std::string url);
 private:
     IOService& ioService;
     TxtService& txtService;

@@ -5,7 +5,7 @@ TxtService::TxtService(IOService& ioService, std::filesystem::path& directoryPat
 {
 }
 
-void TxtService::load(std::filesystem::path fileName)
+void TxtService::load(std::string fileName)
 {
     this->fileName = fileName;
     filePath = directoryPath / fileName;
@@ -16,7 +16,7 @@ void TxtService::load(std::filesystem::path fileName)
     }
 }
 
-bool TxtService::isFileWritable(std::filesystem::path fileName)
+bool TxtService::isFileWritable(std::string fileName)
 {
     if (!fileWritable)
     {
@@ -77,7 +77,7 @@ void TxtService::empty()
 
 std::string TxtService::getFileName() const
 {
-    return fileName.string();
+    return fileName;
 }
 
 std::filesystem::path TxtService::getFilePath() const

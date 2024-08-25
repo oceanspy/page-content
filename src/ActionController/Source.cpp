@@ -10,13 +10,8 @@ void Source::execute()
 {
     // get the page
     WebPageEntity webPageEntity = webPageService.load(url);
-
-    // save the page to a file
-    std::filesystem::path fileName = requestId + "_source";
-
-    std::vector <std::string> fileContent = { webPageEntity.getBody() };
-    txtService.load(fileName);
-    txtService.write(fileContent);
+    txtService.load(requestId + "_source");
+    txtService.write({webPageEntity.getBody()});
 
 
     // Print the result
@@ -29,11 +24,5 @@ void Source::execute()
     ioService.br();
 
     ioService.print(webPageEntity.getBody());
-
-    // std::vector <std::string> pageContent = txtService.read(std::nullopt);
-    // for (std::string line : pageContent)
-    // {
-    //     ioService.print(line);
-    // }
 
 }

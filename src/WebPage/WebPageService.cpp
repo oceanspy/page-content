@@ -21,7 +21,7 @@ WebPageEntity WebPageService::load(std::string url)
     // split url into host and path
     std::string host;
     std::string path;
-    size_t pos = url.find("/");
+    size_t pos = url.find('/');
     if (pos != std::string::npos) {
         host = url.substr(0, pos);
         path = url.substr(pos);
@@ -36,7 +36,7 @@ WebPageEntity WebPageService::load(std::string url)
 
     std::vector<std::pair<std::string, std::string>> headers;
     for (auto& header : res->headers) {
-        headers.push_back({header.first, header.second});
+        headers.emplace_back(header.first, header.second);
     }
 
     WebPageEntity webPageEntity = WebPageEntity();

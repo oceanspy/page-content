@@ -32,6 +32,7 @@ public:
     static std::vector<std::string> split(const std::string& basicString, char i);
     static bool isAlnum(const std::string& str);
     static bool isUrlValid(const std::string& url);
+    static std::string replaceCharWithChar(const std::string& str, char toReplace, char replaceWith);
 };
 
 
