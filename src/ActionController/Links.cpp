@@ -32,30 +32,10 @@ std::string Links::parseContent()
     std::string linksStr;
     std::vector <WebPageTagEntity> webPageTagEntities;
     webPageService.parseTag(webPageEntity.getBody(), "a", webPageTagEntities);
-    for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
-        linksStr += StringHelpers::colorize("Link", YELLOW) +
-                    " > " +
-                    StringHelpers::colorize(webPageTagEntity.getValue(), BLUE) +
-                    ": " +
-                    webPageTagEntity.getAttribute("href") +
-                    "\n";
-    }
     webPageService.parseTag(webPageEntity.getBody(), "button", webPageTagEntities);
-    for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
-        linksStr += StringHelpers::colorize("Button", YELLOW) +
-                    " > " +
-                    StringHelpers::colorize(webPageTagEntity.getValue(), BLUE) +
-                    ": " +
-                    webPageTagEntity.getAttribute("href") +
-                    "\n";
-        // for (auto& attribute : webPageTagEntity.getAttributes()) {
-        //     linksStr += attribute.name + " = " + attribute.value + ", ";
-        // }
-        // linksStr += "\n";
-    }
     webPageService.parseTag(webPageEntity.getBody(), "form", webPageTagEntities);
     for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
-        linksStr += StringHelpers::colorize("Form", YELLOW) +
+        linksStr += StringHelpers::colorize(webPageTagEntity.getTag(), YELLOW) +
                     " > " +
                     StringHelpers::colorize(webPageTagEntity.getValue(), BLUE) +
                     ": " +
