@@ -23,8 +23,8 @@ void Links::execute()
 std::string Links::parseContent()
 {
     std::string linksStr;
-    std::vector<std::pair <std::string, std::string>> links = webPageService.getLinks(webPageEntity.getBody());
-    for (auto link : links)
+    std::vector<std::pair <std::string, std::string>> links = WebPageService::getLinks(webPageEntity.getBody());
+    for (const auto& link : links)
     {
         linksStr += link.first + ": " + link.second + "\n";
     }

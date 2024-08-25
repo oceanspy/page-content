@@ -53,7 +53,7 @@ int main(int argc, const char *argv[])
         ioService.error("Invalid URL");
         return 1;
     }
-    WebPageEntity webPageEntity = webPageService.load(url);
+    WebPageEntity webPageEntity = WebPageService::load(url);
     txtService.load(requestId + "_source");
     txtService.write({webPageEntity.getBody()});
 
