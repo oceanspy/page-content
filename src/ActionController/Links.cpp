@@ -1,7 +1,7 @@
 #include "Links.h"
 
-Links::Links(IOService& ioService, std::string requestId, std::string url)
-    : ioService(ioService), requestId(requestId), url(url)
+Links::Links(IOService& ioService, TxtService& txtService, std::string requestId, std::string url)
+    : ioService(ioService), txtService(txtService), requestId(requestId), url(url)
 {
 
 }

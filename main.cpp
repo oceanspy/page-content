@@ -4,15 +4,20 @@
 #include "src/Command/Command.h"
 #include "src/Command/CommandOption.h"
 #include "src/Command/CommandValidation.h"
-#include "src/Actions/Get.h"
-#include "src/Actions/Links.h"
+#include "src/ActionController/Source.h"
+#include "src/ActionController/Links.h"
+#include "src/FileStorage/TxtService.h"
+#include "src/WebPage/WebPageService.h"
 
 #include <string>
+#include <filesystem>
 
 int main(int argc, const char *argv[])
 {
     IOService ioService = IOService();
     Help help = Help(ioService);
+    std::filesystem::path systemTempPathDirectory = std::filesystem::temp_directory_path();
+    TxtService txtService = TxtService(ioService, systemTempPathDirectory);
 
     // Get command: URL & parameters
     CommandOption commandOption = CommandOption();
@@ -36,8 +41,12 @@ int main(int argc, const char *argv[])
     if (command.getName() == "help")
     {
         help.show();
-        return 1;
-    } else if (command.getName() == "get")
+        return 0;
+    }
+
+    WebPageService webPageService(ioService, txtService);
+
+    if (command.getName() == "source")
     {
         std::string url = !command.getArguments().empty()
                         ? command.getArguments().at(0)
@@ -48,10 +57,12 @@ int main(int argc, const char *argv[])
             return 1;
         }
 
-        Get get = Get(ioService, requestId, url);
+        webPageService.load(url);
+
+        Source get = Source(ioService, txtService, requestId, url);
         get.run();
 
-        return 1;
+        return 0;
     } else if (command.getName() == "links")
     {
         std::string url = !command.getArguments().empty()
@@ -63,10 +74,10 @@ int main(int argc, const char *argv[])
             return 1;
         }
 
-        Links links = Links(ioService, requestId, url);
+        Links links = Links(ioService, txtService, requestId, url);
         links.run();
 
-        return 1;
+        return 0;
     }
 
     help.commandNotFound();

@@ -3,13 +3,15 @@
 
 #include "ActionInterface.h"
 #include "../IOService/IOService.h"
+#include "../FileStorage/TxtService.h"
 
-class Get : public ActionInterface {
+class Source : public ActionInterface {
 public:
-    Get(IOService& ioService, std::string requestId, std::string url);
+    Source(IOService& ioService, TxtService& txtService, std::string requestId, std::string url);
     void run() override;
 private:
     IOService ioService;
+    TxtService txtService;
     std::string requestId;
     std::string url;
 };
