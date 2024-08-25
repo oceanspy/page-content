@@ -35,16 +35,31 @@ std::string Links::parseContent()
     webPageService.parseTag(webPageEntity.getBody(), "button", webPageTagEntities);
     webPageService.parseTag(webPageEntity.getBody(), "form", webPageTagEntities);
     for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
-        linksStr += StringHelpers::colorize(webPageTagEntity.getTag(), YELLOW) +
-                    " > " +
-                    StringHelpers::colorize(webPageTagEntity.getValue(), BLUE) +
-                    ": " +
-                    webPageTagEntity.getAttribute("href") +
-                    "\n";
-        // for (auto& attribute : webPageTagEntity.getAttributes()) {
-        //     linksStr += attribute.name + " = " + attribute.value + ", ";
-        // }
-        // linksStr += "\n";
+        linksStr += StringHelpers::colorize(webPageTagEntity.getTag(), YELLOW) + " > ";
+        linksStr += StringHelpers::colorize(
+                        StringHelpers::removeLineBreaks(
+                            StringHelpers::removeExtraSpaces(webPageTagEntity.getValue())
+                            ),
+                        BLUE
+                        );
+        linksStr += ": ";
+        if (webPageTagEntity.hasAttribute("href"))
+        {
+            linksStr += "[" + StringHelpers::colorize("href", RED) + "] ";
+            linksStr += webPageTagEntity.getAttribute("href") + " ";
+        }
+        if (webPageTagEntity.hasAttribute("src"))
+        {
+            linksStr += "[" + StringHelpers::colorize("src", RED) + "] ";
+            linksStr += webPageTagEntity.getAttribute("src") + " ";
+        }
+        if (webPageTagEntity.hasAttribute("action"))
+        {
+            linksStr += "[" + StringHelpers::colorize("action", RED) + "] ";
+            linksStr += webPageTagEntity.getAttribute("action") + " ";
+        }
+        linksStr += "\n";
     }
+
     return linksStr;
 }

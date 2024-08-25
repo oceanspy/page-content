@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <stdexcept>
+#include <algorithm>
+#include <ranges>
 
 
 class WebPageTagEntity {
@@ -20,6 +22,7 @@ public:
     void addAttribute(const std::string& name, const std::string& value);
     const std::string& getTag();
     const std::string& getValue();
+    bool hasAttribute(const std::string& name);
     const std::string getAttribute(const std::string& name);
     const std::vector<Attribute> getAttributes();
 private:

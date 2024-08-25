@@ -33,6 +33,8 @@ public:
     static bool isAlnum(const std::string& str);
     static bool isUrlValid(const std::string& url);
     static std::string replaceCharWithChar(const std::string& str, char toReplace, char replaceWith);
+    static std::string removeLineBreaks(const std::string& str);
+    static std::string removeExtraSpaces(const std::string& str);
 };
 
 

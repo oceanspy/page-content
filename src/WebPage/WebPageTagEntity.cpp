@@ -1,5 +1,6 @@
 #include "WebPageTagEntity.h"
 
+
 WebPageTagEntity::WebPageTagEntity()
 {
 }
@@ -27,6 +28,13 @@ const std::string& WebPageTagEntity::getTag()
 const std::string& WebPageTagEntity::getValue()
 {
     return value;
+}
+
+bool WebPageTagEntity::hasAttribute(const std::string& name)
+{
+    return std::ranges::any_of(attributes, [&name](const auto& attribute) {
+        return attribute.name == name;
+    });
 }
 
 const std::string WebPageTagEntity::getAttribute(const std::string& name)

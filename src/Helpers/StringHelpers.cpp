@@ -214,3 +214,19 @@ std::string StringHelpers::replaceCharWithChar(const std::string& str, char toRe
     std::replace(result.begin(), result.end(), toReplace, replaceWith);
     return result;
 }
+
+std::string StringHelpers::removeLineBreaks(const std::string& str)
+{
+    std::string result = str;
+    result.erase(std::remove(result.begin(), result.end(), '\n'), result.end());
+    return result;
+}
+
+std::string StringHelpers::removeExtraSpaces(const std::string& str)
+{
+    std::string result = str;
+    result.erase(std::unique(result.begin(), result.end(), [](char a, char b) {
+        return a == ' ' && b == ' ';
+    }), result.end());
+    return result;
+}
