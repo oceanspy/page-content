@@ -13,11 +13,16 @@
 
 #include <string>
 
+#include "GumboService.h"
+#include "WebPageTagEntity.h"
+
 class WebPageService {
 public:
-    WebPageService();
+    explicit WebPageService(GumboService& gumboService);
     static WebPageEntity load(std::string url);
-    static std::vector <std::pair<std::string, std::string>> getLinks(std::string content);
+    void parseTag(const std::string& content, const std::string& lookupTag, std::vector <WebPageTagEntity>& webPageTagEntities);
+private:
+    GumboService& gumboService;
 };
 
 

@@ -7,6 +7,13 @@ Links::Links(IOService& ioService, WebPageService& webPageService, WebPageEntity
 
 void Links::execute()
 {
+    if (webPageEntity.getStatus() != 200) {
+        ioService.br();
+        ioService.error("The page is not available.");
+        printWebPageInfo(webPageEntity);
+        return;
+    }
+
     // Parse the content of the page
     std::string links = parseContent();
 
@@ -23,10 +30,41 @@ void Links::execute()
 std::string Links::parseContent()
 {
     std::string linksStr;
-    std::vector<std::pair <std::string, std::string>> links = WebPageService::getLinks(webPageEntity.getBody());
-    for (const auto& link : links)
-    {
-        linksStr += link.first + ": " + link.second + "\n";
+    std::vector <WebPageTagEntity> webPageTagEntities;
+    webPageService.parseTag(webPageEntity.getBody(), "a", webPageTagEntities);
+    for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
+        linksStr += StringHelpers::colorize("Link", YELLOW) +
+                    " > " +
+                    StringHelpers::colorize(webPageTagEntity.getValue(), BLUE) +
+                    ": " +
+                    webPageTagEntity.getAttribute("href") +
+                    "\n";
+    }
+    webPageService.parseTag(webPageEntity.getBody(), "button", webPageTagEntities);
+    for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
+        linksStr += StringHelpers::colorize("Button", YELLOW) +
+                    " > " +
+                    StringHelpers::colorize(webPageTagEntity.getValue(), BLUE) +
+                    ": " +
+                    webPageTagEntity.getAttribute("href") +
+                    "\n";
+        // for (auto& attribute : webPageTagEntity.getAttributes()) {
+        //     linksStr += attribute.name + " = " + attribute.value + ", ";
+        // }
+        // linksStr += "\n";
+    }
+    webPageService.parseTag(webPageEntity.getBody(), "form", webPageTagEntities);
+    for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
+        linksStr += StringHelpers::colorize("Form", YELLOW) +
+                    " > " +
+                    StringHelpers::colorize(webPageTagEntity.getValue(), BLUE) +
+                    ": " +
+                    webPageTagEntity.getAttribute("href") +
+                    "\n";
+        // for (auto& attribute : webPageTagEntity.getAttributes()) {
+        //     linksStr += attribute.name + " = " + attribute.value + ", ";
+        // }
+        // linksStr += "\n";
     }
     return linksStr;
 }

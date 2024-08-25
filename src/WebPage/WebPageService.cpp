@@ -1,6 +1,7 @@
 #include "WebPageService.h"
 
-WebPageService::WebPageService()
+WebPageService::WebPageService(GumboService& gumboService)
+    : gumboService(gumboService)
 {
 
 }
@@ -8,7 +9,7 @@ WebPageService::WebPageService()
 WebPageEntity WebPageService::load(std::string url)
 {
     // remove http:// or https://
-    int port = 80;
+    int port = 443;
     if (url.find("http://") == 0) {
         url = url.substr(7);
         port = 80;
@@ -34,6 +35,10 @@ WebPageEntity WebPageService::load(std::string url)
     // cli.set_follow_location(true);
     httplib::Result res = cli.Get(path);
 
+    if (!res) {
+        throw std::runtime_error("Error: " + httplib::to_string(res.error()));
+    }
+
     std::vector<std::pair<std::string, std::string>> headers;
     for (auto& header : res->headers) {
         headers.emplace_back(header.first, header.second);
@@ -45,18 +50,8 @@ WebPageEntity WebPageService::load(std::string url)
     return webPageEntity;
 }
 
-std::vector <std::pair<std::string, std::string>> WebPageService::getLinks(std::string content)
+void WebPageService::parseTag(const std::string& content, const std::string& lookupTag, std::vector <WebPageTagEntity>& webPageTagEntities)
 {
-    std::vector <std::pair<std::string, std::string>> links;
-    std::string::size_type pos = 0;
-    while ((pos = content.find("href=\"", pos)) != std::string::npos) {
-        pos += 6;
-        std::string::size_type end = content.find("\"", pos);
-        if (end != std::string::npos) {
-            std::string link = content.substr(pos, end - pos);
-            links.emplace_back(link, "");
-            pos = end;
-        }
-    }
-    return links;
+    GumboOutput* output = gumbo_parse(content.c_str());
+    gumboService.parseNode(output->root, lookupTag, webPageTagEntities);
 }

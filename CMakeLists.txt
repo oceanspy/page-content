@@ -39,10 +39,14 @@ add_executable(page_content main.cpp
         src/ActionController/Links.h
         src/FileStorage/TxtService.h
         src/FileStorage/TxtService.cpp
+        src/WebPage/GumboService.h
+        src/WebPage/GumboService.cpp
         src/WebPage/WebPageService.h
         src/WebPage/WebPageService.cpp
         src/WebPage/WebPageEntity.h
         src/WebPage/WebPageEntity.cpp
+        src/WebPage/WebPageTagEntity.h
+        src/WebPage/WebPageTagEntity.cpp
 )
 
 # Link the cpp-httplib library
@@ -50,5 +54,8 @@ target_link_libraries(page_content httplib::httplib)
 
 find_package(OpenSSL REQUIRED)
 target_link_libraries(page_content OpenSSL::SSL OpenSSL::Crypto)
+
+# Link the Gumbo library
+target_link_libraries(page_content gumbo)
 
 

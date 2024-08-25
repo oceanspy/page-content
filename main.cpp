@@ -25,6 +25,7 @@ int main(int argc, const char *argv[])
     try {
         commandValidation.make();
     } catch (const std::exception& e) {
+        ioService.br();
         ioService.error(e.what());
         ioService.br();
         help.commandNotFound();
@@ -44,16 +45,24 @@ int main(int argc, const char *argv[])
     }
 
     // Loading web page
-    WebPageService webPageService = WebPageService();
+    GumboService gumboService = GumboService();
+    WebPageService webPageService = WebPageService(gumboService);
     std::string url = !command.getArguments().empty()
                     ? command.getArguments().at(0)
                     : "";
-    if (!StringHelpers::isUrlValid(url))
+
+    WebPageEntity webPageEntity;
+    try
     {
-        ioService.error("Invalid URL");
+        webPageEntity = WebPageService::load(url);
+    }
+    catch (const std::exception& e)
+    {
+        ioService.br();
+        ioService.error(e.what());
         return 1;
     }
-    WebPageEntity webPageEntity = WebPageService::load(url);
+
     txtService.load(requestId + "_source");
     txtService.write({webPageEntity.getBody()});
 

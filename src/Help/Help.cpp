@@ -19,12 +19,14 @@ void Help::show()
 
 void Help::commandNotFound()
 {
+    ioService.br();
     ioService.error("Command not found");
     ioService.info("Type 'page-content help' for help");
 }
 
 void Help::commandOptionNotSupported()
 {
+    ioService.br();
     ioService.error("The arguments of the command do not match. Aborting.");
     ioService.info("Type 'page-content help' for help");
 }
