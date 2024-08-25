@@ -16,13 +16,26 @@ void Source::execute()
 
     // Print the result
     ioService.br();
-    ioService.print("════════════════════════════════════════════════════");
-    ioService.print("Page stored in : " + txtService.getFilePath().string());
+    ioService.print(StringHelpers::colorize("════════════════════════════════════════════════════", YELLOW));
+    ioService.print("Page stored at: " + txtService.getFilePath().string());
     ioService.printWithoutLineBreak("URL: ");
     ioService.print(url);
-    ioService.print("════════════════════════════════════════════════════");
+    ioService.printWithoutLineBreak("Host: ");
+    ioService.print(webPageEntity.getHost());
+    ioService.printWithoutLineBreak("Port: ");
+    ioService.print(std::to_string(webPageEntity.getPort()));
+    ioService.printWithoutLineBreak("Path: ");
+    ioService.print(webPageEntity.getPath());
+    ioService.printWithoutLineBreak("Status: ");
+    ioService.print(std::to_string(webPageEntity.getStatus()));
+    ioService.printWithoutLineBreak("Reason: ");
+    ioService.print(webPageEntity.getReason());
+    ioService.printWithoutLineBreak("Error: ");
+    ioService.print(webPageEntity.getErrorMessage());
+    ioService.print(StringHelpers::colorize("════════════════════════════════════════════════════", YELLOW));
     ioService.br();
-
+    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
     ioService.print(webPageEntity.getBody());
-
+    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+    ioService.br();
 }

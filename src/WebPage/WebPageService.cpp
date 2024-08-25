@@ -40,7 +40,7 @@ WebPageEntity WebPageService::load(std::string url)
     }
 
     WebPageEntity webPageEntity = WebPageEntity();
-    webPageEntity.setFromHttplib(url, res->status, res->body, headers, res->reason, httplib::to_string(res.error()));
+    webPageEntity.setFromHttplib(url, host, port, path, res->status, res->body, headers, res->reason, httplib::to_string(res.error()));
 
     return webPageEntity;
 }

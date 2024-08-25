@@ -5,14 +5,19 @@ WebPageEntity::WebPageEntity()
 }
 
 void WebPageEntity::setFromHttplib(const std::string& url,
-                        const int status,
-                        const std::string& content,
-                        const std::vector<std::pair<std::string, std::string>>& headers,
-                        const std::string& reason,
-                        const std::string& errorMessage
-                        )
-{
+                                   const std::string& host,
+                                   const int& port,
+                                   const std::string& path,
+                                   const int& status,
+                                   const std::string& content,
+                                   const std::vector<std::pair<std::string, std::string>>& headers,
+                                   const std::string& reason,
+                                   const std::string& errorMessage
+) {
     this->url = url;
+    this->host = host;
+    this->port = port;
+    this->path = path;
     this->status = status;
     this->body = content;
     this->headers = headers;
@@ -53,6 +58,21 @@ void WebPageEntity::setErrorMessage(const std::string& errorMessage)
 const std::string WebPageEntity::getUrl()
 {
     return url;
+}
+
+const std::string WebPageEntity::getHost()
+{
+    return host;
+}
+
+const int WebPageEntity::getPort()
+{
+    return port;
+}
+
+const std::string WebPageEntity::getPath()
+{
+    return path;
 }
 
 const int WebPageEntity::getStatus()

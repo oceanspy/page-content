@@ -5,6 +5,7 @@
 #include "../IOService/IOService.h"
 #include "../FileStorage/TxtService.h"
 #include "../WebPage/WebPageService.h"
+#include "../Helpers/BashStyle.h"
 
 class Source : public ActionInterface {
 public:
