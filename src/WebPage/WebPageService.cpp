@@ -1,7 +1,6 @@
 #include "WebPageService.h"
 
-WebPageService::WebPageService(IOService& ioService, TxtService& txtService)
-    : ioService(ioService), txtService(txtService)
+WebPageService::WebPageService()
 {
 
 }
@@ -44,4 +43,20 @@ WebPageEntity WebPageService::load(std::string url)
     webPageEntity.setFromHttplib(url, host, port, path, res->status, res->body, headers, res->reason, httplib::to_string(res.error()));
 
     return webPageEntity;
+}
+
+std::vector <std::pair<std::string, std::string>> WebPageService::getLinks(std::string content)
+{
+    std::vector <std::pair<std::string, std::string>> links;
+    std::string::size_type pos = 0;
+    while ((pos = content.find("href=\"", pos)) != std::string::npos) {
+        pos += 6;
+        std::string::size_type end = content.find("\"", pos);
+        if (end != std::string::npos) {
+            std::string link = content.substr(pos, end - pos);
+            links.emplace_back(link, "");
+            pos = end;
+        }
+    }
+    return links;
 }

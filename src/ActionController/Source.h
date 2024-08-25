@@ -7,13 +7,15 @@
 #include "../WebPage/WebPageEntity.h"
 #include "../Helpers/StringHelpers.h"
 #include "../Helpers/BashStyle.h"
+#include "../WebPage/WebPageService.h"
 
 class Source : public ActionInterface, public ActionAbstract {
 public:
-    Source(IOService& ioService, WebPageEntity& webPageEntity);
+    Source(IOService& ioService, WebPageService& webPageService, WebPageEntity& webPageEntity);
     void execute() override;
 private:
     IOService& ioService;
+    WebPageService& webPageService;
     WebPageEntity& webPageEntity;
 };
 

@@ -1,7 +1,7 @@
 #include "Source.h"
 
-Source::Source(IOService& ioService, WebPageEntity& webPageEntity)
-    : ActionAbstract(ioService), ioService(ioService), webPageEntity(webPageEntity)
+Source::Source(IOService& ioService, WebPageService& webPageService, WebPageEntity& webPageEntity)
+    : ActionAbstract(ioService), ioService(ioService), webPageService(webPageService), webPageEntity(webPageEntity)
 {
 }
 
@@ -13,6 +13,7 @@ void Source::execute()
     // Print the result
     printWebPageInfo(webPageEntity);
 
+    ioService.print("Source code:");
     ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
     ioService.print(webPageEntity.getBody());
     ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));

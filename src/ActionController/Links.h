@@ -7,14 +7,17 @@
 #include "../WebPage/WebPageEntity.h"
 #include "../Helpers/StringHelpers.h"
 #include "../Helpers/BashStyle.h"
+#include "../WebPage/WebPageService.h"
 
 class Links : public ActionInterface, public ActionAbstract {
 public:
-    Links(IOService& ioService, WebPageEntity& webPageEntity);
+    Links(IOService& ioService, WebPageService& webPageService, WebPageEntity& webPageEntity);
     void execute() override;
 private:
     IOService& ioService;
+    WebPageService& webPageService;
     WebPageEntity& webPageEntity;
+    std::string parseContent();
 };
 
 

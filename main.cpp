@@ -44,7 +44,7 @@ int main(int argc, const char *argv[])
     }
 
     // Loading web page
-    WebPageService webPageService(ioService, txtService);
+    WebPageService webPageService = WebPageService();
     std::string url = !command.getArguments().empty()
                     ? command.getArguments().at(0)
                     : "";
@@ -60,13 +60,13 @@ int main(int argc, const char *argv[])
     // Parse web page and show result
     if (command.getName() == "source")
     {
-        Source source = Source(ioService, webPageEntity);
+        Source source = Source(ioService, webPageService, webPageEntity);
         source.execute();
 
         return 0;
     } else if (command.getName() == "links")
     {
-        Links links = Links(ioService, webPageEntity);
+        Links links = Links(ioService, webPageService, webPageEntity);
         links.execute();
 
         return 0;

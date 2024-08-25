@@ -15,11 +15,9 @@
 
 class WebPageService {
 public:
-    WebPageService(IOService& ioService, TxtService& txtService);
+    WebPageService();
     static WebPageEntity load(std::string url);
-private:
-    IOService& ioService;
-    TxtService& txtService;
+    static std::vector <std::pair<std::string, std::string>> getLinks(std::string content);
 };
 
 
