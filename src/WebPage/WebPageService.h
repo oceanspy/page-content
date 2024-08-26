@@ -22,6 +22,7 @@ public:
     static WebPageEntity loadFromUrl(std::string url);
     static WebPageEntity loadFromFile(std::filesystem::path filePath);
     void parseTag(const std::string& content, const std::string& lookupTag, std::vector <WebPageTagEntity>& webPageTagEntities);
+    std::string generateHighlightHTML(const std::string& html);
 private:
     GumboService& gumboService;
 };

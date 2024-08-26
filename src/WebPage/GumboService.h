@@ -6,6 +6,7 @@
 #include <vector>
 #include <gumbo.h>
 #include "../WebPage/WebPageTagEntity.h"
+#include "../Helpers/BashStyle.h"
 
 class GumboService {
 public:
@@ -13,6 +14,7 @@ public:
 
   void parseNode(GumboNode* node, const std::string& lookupTag, std::vector<WebPageTagEntity>& webPageTagEntities);
   std::string getInnerHTML(GumboNode* node);
+  std::string generateHighlightedHTML(GumboNode* node);
 };
 
 

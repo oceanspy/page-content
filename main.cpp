@@ -80,6 +80,11 @@ int main(int argc, const char *argv[])
             ioService.error(e.what());
             return 1;
         }
+    } else {
+        help.commandNotFound();
+        ioService.br();
+        ioService.info("Use -u/--url or -f/--file option.");
+        return 1;
     }
 
     // Parse web page and show result

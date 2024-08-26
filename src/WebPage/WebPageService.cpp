@@ -66,3 +66,10 @@ void WebPageService::parseTag(const std::string& content, const std::string& loo
 {
     gumboService.parseTag(content, lookupTag, webPageTagEntities);
 }
+
+std::string WebPageService::generateHighlightHTML(const std::string& html) {
+    GumboOutput* output = gumbo_parse(html.c_str());
+    std::string highlighted_html = gumboService.generateHighlightedHTML(output->root);
+    gumbo_destroy_output(&kGumboDefaultOptions, output);
+    return highlighted_html;
+}

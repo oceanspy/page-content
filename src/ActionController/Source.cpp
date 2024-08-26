@@ -15,7 +15,7 @@ void Source::execute()
 
     ioService.print("Source code:");
     ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
-    ioService.print(webPageEntity.getBody());
+    ioService.print(webPageService.generateHighlightHTML(webPageEntity.getBody()));
     ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
     ioService.br();
 }

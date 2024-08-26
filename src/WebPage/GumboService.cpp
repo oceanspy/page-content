@@ -92,3 +92,40 @@ std::string GumboService::getInnerHTML(GumboNode* node) {
 
     return innerHtml;
 }
+
+std::string GumboService::generateHighlightedHTML(GumboNode* node) {
+    std::string result;
+
+    if (node->type == GUMBO_NODE_ELEMENT) {
+        // Opening tag
+        result += BashStyle::getBashCode("BLUE");
+        result += "<" + std::string(gumbo_normalized_tagname(node->v.element.tag));
+
+        // Add attributes with their values
+        GumboVector* attributes = &node->v.element.attributes;
+        for (unsigned int i = 0; i < attributes->length; ++i) {
+            GumboAttribute* attr = static_cast<GumboAttribute*>(attributes->data[i]);
+            result += " " + BashStyle::getBashCode("GREEN") + attr->name + BashStyle::getBashCode("RESET") + "="
+                      + BashStyle::getBashCode("YELLOW") + "\"" + attr->value + "\"" + BashStyle::getBashCode("RESET");
+        }
+
+        result += BashStyle::getBashCode("BLUE") + ">" + BashStyle::getBashCode("RESET");
+
+        // Recursively process and append children
+        GumboVector* children = &node->v.element.children;
+        for (unsigned int i = 0; i < children->length; ++i) {
+            result += generateHighlightedHTML(static_cast<GumboNode*>(children->data[i]));
+        }
+
+        // Closing tag
+        result += BashStyle::getBashCode("BLUE") + "</" + std::string(gumbo_normalized_tagname(node->v.element.tag)) + ">" + BashStyle::getBashCode("RESET");
+    } else if (node->type == GUMBO_NODE_TEXT) {
+        // Text content
+        result += BashStyle::getBashCode("WHITE") + std::string(node->v.text.text) + BashStyle::getBashCode("RESET");
+    } else if (node->type == GUMBO_NODE_WHITESPACE) {
+        // Whitespace (preserve formatting)
+        result += node->v.text.text;
+    }
+
+    return result;
+}
