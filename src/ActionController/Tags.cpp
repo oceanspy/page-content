@@ -49,9 +49,9 @@ std::string Tags::parseContent()
         for (auto& [key, value] : webPageTagEntity.getAttributes())
         {
             tagsStr += "[" + StringHelpers::colorize(key, RED) + "] ";
-            tagsStr += value + "\n ---- ";
+            tagsStr += value;
         }
-        // tagsStr += "\n";
+        tagsStr += "\n";
     }
 
     return tagsStr;
