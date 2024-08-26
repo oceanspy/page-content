@@ -8,44 +8,45 @@ ActionAbstract::ActionAbstract(IOService& ioService)
 void ActionAbstract::printWebPageInfo(WebPageEntity& webPageEntity)
 {
     ioService.br();
-    ioService.print(StringHelpers::colorize("════════════════════════════════════════════════════", YELLOW));
-    ioService.print("Page stored at: " + webPageEntity.getLocalStorageWebPagePath().string());
+    ioService.printFullLineOfString("═", BashStyle::getBashCode("YELLOW"));
+    ioService.print(" Page stored at: " + webPageEntity.getLocalStorageWebPagePath().string());
+    ioService.printFullLineOfString("─", BashStyle::getBashCode("YELLOW"));
     if (!webPageEntity.getUrl().empty())
     {
-        ioService.printWithoutLineBreak("URL: ");
+        ioService.printWithoutLineBreak(" URL: ");
         ioService.print(webPageEntity.getUrl());
     }
     if (!webPageEntity.getHost().empty())
     {
-        ioService.printWithoutLineBreak("Host: ");
+        ioService.printWithoutLineBreak(" Host: ");
         ioService.print(webPageEntity.getHost());
     }
     if (webPageEntity.getPort() != 0)
     {
-        ioService.printWithoutLineBreak("Port: ");
+        ioService.printWithoutLineBreak(" Port: ");
         ioService.print(std::to_string(webPageEntity.getPort()));
     }
     if (!webPageEntity.getPath().empty())
     {
-        ioService.printWithoutLineBreak("Path: ");
+        ioService.printWithoutLineBreak(" Path: ");
         ioService.print(webPageEntity.getPath());
     }
     if (webPageEntity.getStatus() != 0)
     {
-        ioService.printWithoutLineBreak("Status: ");
+        ioService.printWithoutLineBreak(" Status: ");
         ioService.print(std::to_string(webPageEntity.getStatus()));
     }
     if (!webPageEntity.getReason().empty())
     {
-        ioService.printWithoutLineBreak("Reason: ");
+        ioService.printWithoutLineBreak(" Reason: ");
         ioService.print(webPageEntity.getReason());
     }
     if (!webPageEntity.getErrorMessage().empty())
     {
-        ioService.printWithoutLineBreak("Error: ");
+        ioService.printWithoutLineBreak(" Error: ");
         ioService.print(webPageEntity.getErrorMessage());
     }
 
-    ioService.print(StringHelpers::colorize("════════════════════════════════════════════════════", YELLOW));
+    ioService.printFullLineOfString("═", BashStyle::getBashCode("YELLOW"));
     ioService.br();
 }

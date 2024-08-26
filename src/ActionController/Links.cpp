@@ -14,9 +14,9 @@ void Links::execute()
     printWebPageInfo(webPageEntity);
 
     ioService.print("All links found in the page:");
-    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+    ioService.printFullLineOfString("─", BashStyle::getBashCode("GRAY"));
     ioService.print(linksRendered);
-    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+    ioService.printFullLineOfString("─", BashStyle::getBashCode("GRAY"));
     ioService.br();
 }
 
@@ -29,6 +29,7 @@ std::string Links::parseContent()
     webPageService.parseTag(webPageEntity.getBody(), "button", webPageTagEntities);
     webPageService.parseTag(webPageEntity.getBody(), "form", webPageTagEntities);
 
+    linksStr += "\n";
     for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
         linksStr += StringHelpers::colorize(webPageTagEntity.getTag(), YELLOW) + " > ";
         linksStr += StringHelpers::colorize(

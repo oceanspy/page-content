@@ -14,9 +14,9 @@ void Tags::execute()
     printWebPageInfo(webPageEntity);
 
     ioService.print("All links found in the page:");
-    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+    ioService.printFullLineOfString("─", BashStyle::getBashCode("GRAY"));
     ioService.print(tagsRendered);
-    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+    ioService.printFullLineOfString("─", BashStyle::getBashCode("GRAY"));
     ioService.br();
 }
 

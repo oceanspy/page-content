@@ -5,6 +5,11 @@
 #include <vector>
 #include <unistd.h>
 #include <sys/ioctl.h>
+#include <codecvt>
+#include <locale>
+#include <utility>
+
+#include "IOCliService/IOCliService.h"
 
 class IOService {
 public:
@@ -19,6 +24,7 @@ public:
     void show(const std::vector <std::string>& messages);
     std::string ask(const std::string& message);
     static int getConsoleDisplayWidth();
+    void printFullLineOfString(const std::string& str, const std::string& color = "");
 protected:
     std::string channel;
 };

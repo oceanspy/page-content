@@ -1,10 +1,5 @@
 #include "IOService.h"
 
-#include <utility>
-
-#include "IOCliService/IOCliService.h"
-
-
 IOService::IOService(std::string channel)
     : channel(std::move(channel))
 {
@@ -95,4 +90,34 @@ int IOService::getConsoleDisplayWidth() {
     struct winsize w{};
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     return w.ws_col;
+}
+
+void IOService::printFullLineOfString(const std::string& str, const std::string& color)
+{
+    if (channel == "cli")
+    {
+        std::string renderedStr;
+        int width = getConsoleDisplayWidth();
+        // convert to wstring
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+        std::wstring wStr = converter.from_bytes(str);
+        // get the length of the string
+        int length = wStr.length();
+        // calculate how many times the string should be printed
+        int times = width / length;
+
+        for (int i = 0; i < times; i++)
+        {
+            renderedStr += str;
+        }
+
+        if (color.empty())
+        {
+            IOCliService::print(renderedStr);
+            return;
+        }
+
+        renderedStr = color + renderedStr + "\033[0m";
+        IOCliService::print(renderedStr);
+    }
 }

@@ -14,8 +14,8 @@ void Source::execute()
     printWebPageInfo(webPageEntity);
 
     ioService.print("Source code:");
-    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+    ioService.printFullLineOfString("─", BashStyle::getBashCode("GRAY"));
     ioService.print(webPageService.generateHighlightHTML(webPageEntity.getBody()));
-    ioService.print(StringHelpers::colorize("────────────────────────────────────────────────────", GRAY));
+    ioService.printFullLineOfString("─", BashStyle::getBashCode("GRAY"));
     ioService.br();
 }
