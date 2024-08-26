@@ -55,7 +55,13 @@ int main(int argc, const char *argv[])
     {
         try
         {
-            webPageEntity = WebPageService::loadFromUrl(command.getOption("url"));
+            if (command.hasOption("port") && !command.getOption("port").empty())
+            {
+                webPageEntity = WebPageService::loadFromUrl(command.getOption("url"), std::stoi(command.getOption("port")));
+            } else
+            {
+                webPageEntity = WebPageService::loadFromUrl(command.getOption("url"));
+            }
         }
         catch (const std::exception& e)
         {

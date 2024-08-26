@@ -9,6 +9,7 @@ void CommandOption::populateOptions()
 {
     options["u"] = "url";
     options["f"] = "file";
+    options["p"] = "port";
 }
 
 bool CommandOption::isValidOption(const std::string &arg)
@@ -34,6 +35,10 @@ bool CommandOption::isOptionWithValue(const std::string &arg)
         return true;
     }
     else if (shortToLongOption(arg) == "file")
+    {
+        return true;
+    }
+    else if (shortToLongOption(arg) == "port")
     {
         return true;
     }

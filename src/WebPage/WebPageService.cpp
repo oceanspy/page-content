@@ -6,10 +6,9 @@ WebPageService::WebPageService(GumboService& gumboService)
 
 }
 
-WebPageEntity WebPageService::loadFromUrl(std::string url)
+WebPageEntity WebPageService::loadFromUrl(std::string url, int port)
 {
     // remove http:// or https://
-    int port = 443;
     if (url.find("http://") == 0) {
         url = url.substr(7);
         port = 80;

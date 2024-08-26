@@ -19,7 +19,7 @@
 class WebPageService {
 public:
     explicit WebPageService(GumboService& gumboService);
-    static WebPageEntity loadFromUrl(std::string url);
+    static WebPageEntity loadFromUrl(std::string url, int port = 443);
     static WebPageEntity loadFromFile(std::filesystem::path filePath);
     void parseTag(const std::string& content, const std::string& lookupTag, std::vector <WebPageTagEntity>& webPageTagEntities);
     std::string generateHighlightHTML(const std::string& html);
