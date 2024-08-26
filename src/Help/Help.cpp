@@ -45,8 +45,3 @@ std::vector<std::string> Help::helpListForCli()
         "\033[0mtags \033[93m{tags} [-u/-f]\033[0m                                        Show all the links found in page content"
     };
 }
-
-std::string Help::getVersion()
-{
-    return "development";
-}

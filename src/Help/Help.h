@@ -10,7 +10,6 @@ public:
     void show();
     void commandNotFound();
     void commandOptionNotSupported();
-    static std::string getVersion();
 private:
     IOService& ioService;
     static std::vector <std::string> helpListForCli();
