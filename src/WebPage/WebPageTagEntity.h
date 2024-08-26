@@ -18,16 +18,19 @@ struct Attribute {
 public:
     WebPageTagEntity();
     void setTag(const std::string& tag);
-    void setValue(const std::string& value);
+    void setTxtInnerValue(const std::string& value);
+    void setRawInnerValue(const std::string& value);
     void addAttribute(const std::string& name, const std::string& value);
     const std::string& getTag();
-    const std::string& getValue();
+    const std::string& getTxtInnerValue();
+    const std::string& getRawInnerValue();
     bool hasAttribute(const std::string& name);
     const std::string getAttribute(const std::string& name);
     const std::vector<Attribute> getAttributes();
 private:
     std::string tag;
-    std::string value;
+    std::string txtInnerValue;
+    std::string rawInnerValue;
     std::vector <Attribute> attributes;
 };
 

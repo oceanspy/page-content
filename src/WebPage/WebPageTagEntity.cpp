@@ -10,9 +10,14 @@ void WebPageTagEntity::setTag(const std::string& tag)
     this->tag = tag;
 }
 
-void WebPageTagEntity::setValue(const std::string& value)
+void WebPageTagEntity::setTxtInnerValue(const std::string& value)
 {
-    this->value = value;
+    this->txtInnerValue = value;
+}
+
+void WebPageTagEntity::setRawInnerValue(const std::string& value)
+{
+    this->rawInnerValue = value;
 }
 
 void WebPageTagEntity::addAttribute(const std::string& name, const std::string& value)
@@ -25,9 +30,14 @@ const std::string& WebPageTagEntity::getTag()
     return tag;
 }
 
-const std::string& WebPageTagEntity::getValue()
+const std::string& WebPageTagEntity::getTxtInnerValue()
 {
-    return value;
+    return txtInnerValue;
+}
+
+const std::string& WebPageTagEntity::getRawInnerValue()
+{
+    return rawInnerValue;
 }
 
 bool WebPageTagEntity::hasAttribute(const std::string& name)

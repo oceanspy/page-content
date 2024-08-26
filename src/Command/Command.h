@@ -13,6 +13,7 @@ public:
     std::map <std::string, std::string> getOptions();
     std::string getOption(const std::string& optionName);
     bool hasOption(const std::string& optionName);
+    bool hasArguments();
     std::string getRawCommand();
     std::string getLastCommandInput();
 private:

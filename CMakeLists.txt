@@ -47,6 +47,8 @@ add_executable(page_content main.cpp
         src/WebPage/WebPageEntity.cpp
         src/WebPage/WebPageTagEntity.h
         src/WebPage/WebPageTagEntity.cpp
+        src/ActionController/Tags.h
+        src/ActionController/Tags.cpp
 )
 
 # Link the cpp-httplib library

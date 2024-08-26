@@ -1,5 +1,10 @@
 #include "GumboService.h"
 
+void GumboService::parseTag(const std::string& content, const std::string& lookupTag, std::vector<WebPageTagEntity>& webPageTagEntities) {
+    GumboOutput* output = gumbo_parse(content.c_str());
+    parseNode(output->root, lookupTag, webPageTagEntities);
+}
+
 // Recursive function to parse the document and extract link information
 void GumboService::parseNode(GumboNode* node, const std::string& lookupTag, std::vector <WebPageTagEntity>& webPageTagEntities) {
     if (node->type == GUMBO_NODE_ELEMENT)
@@ -14,9 +19,13 @@ void GumboService::parseNode(GumboNode* node, const std::string& lookupTag, std:
             if (element->children.length > 0) {
                 GumboNode* textNode = static_cast<GumboNode*>(element->children.data[0]);
                 if (textNode->type == GUMBO_NODE_TEXT) {
-                    webPageTagEntity.setValue(textNode->v.text.text);
+                    webPageTagEntity.setTxtInnerValue(textNode->v.text.text);
                 }
             }
+
+            // Get the raw value inside the tag
+            std::string innerHtml = "";
+            webPageTagEntity.setRawInnerValue(innerHtml);
 
             // Iterate over all attributes of the element
             GumboVector* attributes = &element->attributes;

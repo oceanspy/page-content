@@ -7,7 +7,8 @@ CommandOption::CommandOption() {
 
 void CommandOption::populateOptions()
 {
-    options["l"] = "links";
+    options["u"] = "url";
+    options["f"] = "file";
 }
 
 bool CommandOption::isValidOption(const std::string &arg)
@@ -28,6 +29,15 @@ bool CommandOption::isValidOption(const std::string &arg)
 
 bool CommandOption::isOptionWithValue(const std::string &arg)
 {
+    if (shortToLongOption(arg) == "url")
+    {
+        return true;
+    }
+    else if (shortToLongOption(arg) == "file")
+    {
+        return true;
+    }
+
     return false;
 }
 

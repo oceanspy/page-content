@@ -12,6 +12,8 @@
 #include <string>
 #include <filesystem>
 
+#include "src/ActionController/Tags.h"
+
 int main(int argc, const char *argv[])
 {
     IOService ioService = IOService();
@@ -46,25 +48,39 @@ int main(int argc, const char *argv[])
 
     // Loading web page
     GumboService gumboService = GumboService();
-    WebPageService webPageService = WebPageService(gumboService);
-    std::string url = !command.getArguments().empty()
-                    ? command.getArguments().at(0)
-                    : "";
+    auto webPageService = WebPageService(gumboService);
 
     WebPageEntity webPageEntity;
-    try
+    if (command.hasOption("url") && !command.getOption("url").empty())
     {
-        webPageEntity = WebPageService::load(url);
-    }
-    catch (const std::exception& e)
-    {
-        ioService.br();
-        ioService.error(e.what());
-        return 1;
-    }
+        try
+        {
+            webPageEntity = WebPageService::loadFromUrl(command.getOption("url"));
+        }
+        catch (const std::exception& e)
+        {
+            ioService.br();
+            ioService.error(e.what());
+            return 1;
+        }
 
-    txtService.load(requestId + "_source");
-    txtService.write({webPageEntity.getBody()});
+        txtService.load(requestId + "_source");
+        txtService.write({webPageEntity.getBody()});
+        webPageEntity.setLocalStorageWebPagePath(txtService.getFilePath());
+
+    } else if (command.hasOption("file") && !command.getOption("file").empty())
+    {
+        try
+        {
+            webPageEntity = WebPageService::loadFromFile(command.getOption("file"));
+        }
+        catch (const std::exception& e)
+        {
+            ioService.br();
+            ioService.error(e.what());
+            return 1;
+        }
+    }
 
     // Parse web page and show result
     if (command.getName() == "source")
@@ -77,6 +93,23 @@ int main(int argc, const char *argv[])
     {
         Links links = Links(ioService, webPageService, webPageEntity);
         links.execute();
+
+        return 0;
+    } else if (command.getName() == "tags")
+    {
+        if (!command.hasArguments())
+        {
+            ioService.error("No tags provided.");
+            return 1;
+        }
+
+        std::vector <std::string> tagsList;
+        for (auto& tag : command.getArguments())
+        {
+            tagsList.push_back(tag);
+        }
+        Tags tags = Tags(ioService, webPageService, webPageEntity, tagsList);
+        tags.execute();
 
         return 0;
     }

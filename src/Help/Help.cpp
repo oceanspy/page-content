@@ -36,8 +36,12 @@ std::vector<std::string> Help::helpListForCli()
     return {
         "\033[96mhelp\033[0m                                                       Show the help center",
         "",
-        "\033[0mget \033[93m{url}\033[0m                                                      Show the content of the url",
-        "\033[0mlinks \033[93m{url}\033[0m                                                      Show all the links found in the content of the url"
+        "\033[94m-u/--url {name}\033[0m                                            Provide the url to be used",
+        "\033[94m-f/--file {name}\033[0m                                           Provide the file to be used",
+        "",
+        "\033[0msource \033[93m[-u/-f]\033[0m                                             Show the source content of the page",
+        "\033[0mlinks \033[93m[-u/-f]\033[0m                                              Show all the links found in page content",
+        "\033[0mtags \033[93m{tags} [-u/-f]\033[0m                                        Show all the links found in page content"
     };
 }
 

@@ -54,3 +54,8 @@ bool Command::hasOption(const std::string& optionName) {
         return false;
     });
 }
+
+bool Command::hasArguments()
+{
+    return !arguments.empty();
+}

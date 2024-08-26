@@ -43,11 +43,11 @@ private:
     std::string url;
     std::filesystem::path localStorageWebPagePath;
     std::string host;
-    int port;
+    int port = 0;
     std::string path;
     std::string body;
     std::vector<std::pair<std::string, std::string>> headers;
-    int status;
+    int status = 0;
     std::string reason;
     std::string errorMessage;
 };

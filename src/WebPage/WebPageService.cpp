@@ -6,7 +6,7 @@ WebPageService::WebPageService(GumboService& gumboService)
 
 }
 
-WebPageEntity WebPageService::load(std::string url)
+WebPageEntity WebPageService::loadFromUrl(std::string url)
 {
     // remove http:// or https://
     int port = 443;
@@ -50,8 +50,19 @@ WebPageEntity WebPageService::load(std::string url)
     return webPageEntity;
 }
 
+WebPageEntity WebPageService::loadFromFile(std::filesystem::path filePath)
+{
+    std::ifstream ifs(filePath);
+    std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
+
+    WebPageEntity webPageEntity = WebPageEntity();
+    webPageEntity.setBody(content);
+    webPageEntity.setLocalStorageWebPagePath(filePath);
+
+    return webPageEntity;
+}
+
 void WebPageService::parseTag(const std::string& content, const std::string& lookupTag, std::vector <WebPageTagEntity>& webPageTagEntities)
 {
-    GumboOutput* output = gumbo_parse(content.c_str());
-    gumboService.parseNode(output->root, lookupTag, webPageTagEntities);
+    gumboService.parseTag(content, lookupTag, webPageTagEntities);
 }

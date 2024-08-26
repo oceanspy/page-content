@@ -19,7 +19,8 @@
 class WebPageService {
 public:
     explicit WebPageService(GumboService& gumboService);
-    static WebPageEntity load(std::string url);
+    static WebPageEntity loadFromUrl(std::string url);
+    static WebPageEntity loadFromFile(std::filesystem::path filePath);
     void parseTag(const std::string& content, const std::string& lookupTag, std::vector <WebPageTagEntity>& webPageTagEntities);
 private:
     GumboService& gumboService;
