@@ -24,7 +24,7 @@ void GumboService::parseNode(GumboNode* node, const std::string& lookupTag, std:
             }
 
             // Get the raw value inside the tag
-            std::string innerHtml = "";
+            std::string innerHtml = getInnerHTML(node);
             webPageTagEntity.setRawInnerValue(innerHtml);
 
             // Iterate over all attributes of the element
@@ -54,4 +54,41 @@ void GumboService::parseNode(GumboNode* node, const std::string& lookupTag, std:
         }
         return;
     }
+}
+
+std::string GumboService::getInnerHTML(GumboNode* node) {
+    if (!node || node->type != GUMBO_NODE_ELEMENT) {
+        return "";
+    }
+
+    std::string innerHtml;
+    GumboVector* children = &node->v.element.children;
+    for (unsigned int i = 0; i < children->length; ++i) {
+        GumboNode* child = static_cast<GumboNode*>(children->data[i]);
+        if (child->type == GUMBO_NODE_TEXT) {
+            innerHtml += child->v.text.text;
+        } else if (child->type == GUMBO_NODE_ELEMENT) {
+            const char* tagName = gumbo_normalized_tagname(child->v.element.tag);
+            innerHtml += "<" + std::string(tagName);
+
+            // Append attributes
+            GumboVector* attributes = &child->v.element.attributes;
+            for (unsigned int j = 0; j < attributes->length; ++j) {
+                GumboAttribute* attribute = static_cast<GumboAttribute*>(attributes->data[j]);
+                innerHtml += " " + std::string(attribute->name) + "=\"" + attribute->value + "\"";
+            }
+
+            innerHtml += ">";
+
+            // Recursively get the inner HTML of the child
+            innerHtml += getInnerHTML(child);
+
+            // Close the tag
+            innerHtml += "</" + std::string(tagName) + ">";
+        } else if (child->type == GUMBO_NODE_WHITESPACE) {
+            innerHtml += child->v.text.text;
+        }
+    }
+
+    return innerHtml;
 }

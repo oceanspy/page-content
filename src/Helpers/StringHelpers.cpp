@@ -225,6 +225,7 @@ std::string StringHelpers::removeLineBreaks(const std::string& str)
 std::string StringHelpers::removeExtraSpaces(const std::string& str)
 {
     std::string result = str;
+    // remove extra spaces
     result.erase(std::unique(result.begin(), result.end(), [](char a, char b) {
         return a == ' ' && b == ' ';
     }), result.end());
