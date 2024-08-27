@@ -1,7 +1,7 @@
 #ifndef TXTSERVICE_H
 #define TXTSERVICE_H
 
-#include "FileDataServiceInterface.h"
+#include "../FileStorage/FileDataServiceInterface.h"
 #include "../IOService/IOService.h"
 
 #include <string>
@@ -11,9 +11,9 @@
 #include <deque>
 #include <fstream>
 
-class FileRepository : public FileDataServiceInterface {
+class WebPageRepository : public FileDataServiceInterface {
 public:
-    explicit FileRepository(IOService& ioService, std::filesystem::path& directoryPath);
+    explicit WebPageRepository(IOService& ioService, std::filesystem::path& directoryPath);
     void load(const std::string& fileName) override;
     bool isFileWritable(const std::string& fileName) override;
     std::vector <std::string> read(const std::string& fileName, std::optional<int> limitOpt) override;

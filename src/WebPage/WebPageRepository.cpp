@@ -1,11 +1,11 @@
-#include "FileRepository.h"
+#include "WebPageRepository.h"
 
-FileRepository::FileRepository(IOService& ioService, std::filesystem::path& directoryPath)
+WebPageRepository::WebPageRepository(IOService& ioService, std::filesystem::path& directoryPath)
     : ioService(ioService), directoryPath(directoryPath)
 {
 }
 
-void FileRepository::load(const std::string& fileName)
+void WebPageRepository::load(const std::string& fileName)
 {
     filePath = directoryPath / fileName;
 
@@ -15,7 +15,7 @@ void FileRepository::load(const std::string& fileName)
     }
 }
 
-bool FileRepository::isFileWritable(const std::string& fileName)
+bool WebPageRepository::isFileWritable(const std::string& fileName)
 {
     bool fileWritable = false;
     filePath = directoryPath / fileName;
@@ -26,7 +26,7 @@ bool FileRepository::isFileWritable(const std::string& fileName)
 }
 
 
-std::vector <std::string> FileRepository::read(const std::string& fileName, std::optional<int> limitOpt)
+std::vector <std::string> WebPageRepository::read(const std::string& fileName, std::optional<int> limitOpt)
 {
     load(fileName);
 
@@ -44,7 +44,7 @@ std::vector <std::string> FileRepository::read(const std::string& fileName, std:
     return data;
 }
 
-void FileRepository::create(const std::string& fileName, std::vector <std::string>& data)
+void WebPageRepository::create(const std::string& fileName, std::vector <std::string>& data)
 {
     load(fileName);
 
@@ -58,7 +58,7 @@ void FileRepository::create(const std::string& fileName, std::vector <std::strin
     file.close();
 }
 
-void FileRepository::append(const std::string& fileName, std::vector <std::string> data)
+void WebPageRepository::append(const std::string& fileName, std::vector <std::string> data)
 {
     load(fileName);
 
@@ -72,7 +72,7 @@ void FileRepository::append(const std::string& fileName, std::vector <std::strin
     file.close();
 }
 
-void FileRepository::empty(const std::string& fileName)
+void WebPageRepository::empty(const std::string& fileName)
 {
     load(fileName);
 
@@ -80,7 +80,7 @@ void FileRepository::empty(const std::string& fileName)
     file.close();
 }
 
-std::filesystem::path FileRepository::getFilePath(const std::string& fileName)
+std::filesystem::path WebPageRepository::getFilePath(const std::string& fileName)
 {
     load(fileName);
 

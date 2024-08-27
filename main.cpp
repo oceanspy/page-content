@@ -6,7 +6,7 @@
 #include "src/Command/CommandValidation.h"
 #include "src/ActionController/Source.h"
 #include "src/ActionController/Links.h"
-#include "src/FileStorage/FileRepository.h"
+#include "src/WebPage/WebPageRepository.h"
 #include "src/WebPage/WebPageService.h"
 
 #include <string>
@@ -19,7 +19,7 @@ int main(int argc, const char *argv[])
     IOService ioService = IOService();
     Help help = Help(ioService);
     std::filesystem::path systemTempPathDirectory = std::filesystem::temp_directory_path();
-    FileRepository fileRepository = FileRepository(ioService, systemTempPathDirectory);
+    WebPageRepository fileRepository = WebPageRepository(ioService, systemTempPathDirectory);
 
     // Get command: URL & parameters
     CommandOption commandOption = CommandOption();
