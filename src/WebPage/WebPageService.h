@@ -2,7 +2,7 @@
 #define WEBPAGESERVICE_H
 
 #include "../IOService/IOService.h"
-#include "../FileStorage/TxtService.h"
+#include "../FileStorage/FileRepository.h"
 #include "WebPageEntity.h"
 #include "../Helpers/StringHelpers.h"
 

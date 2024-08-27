@@ -37,8 +37,8 @@ add_executable(page_content main.cpp
         src/ActionController/Links.h
         src/ActionController/Links.cpp
         src/ActionController/Links.h
-        src/FileStorage/TxtService.h
-        src/FileStorage/TxtService.cpp
+        src/FileStorage/FileRepository.h
+        src/FileStorage/FileRepository.cpp
         src/WebPage/GumboService.h
         src/WebPage/GumboService.cpp
         src/WebPage/WebPageService.h

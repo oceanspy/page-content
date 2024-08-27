@@ -6,7 +6,7 @@
 #include "src/Command/CommandValidation.h"
 #include "src/ActionController/Source.h"
 #include "src/ActionController/Links.h"
-#include "src/FileStorage/TxtService.h"
+#include "src/FileStorage/FileRepository.h"
 #include "src/WebPage/WebPageService.h"
 
 #include <string>
@@ -19,7 +19,7 @@ int main(int argc, const char *argv[])
     IOService ioService = IOService();
     Help help = Help(ioService);
     std::filesystem::path systemTempPathDirectory = std::filesystem::temp_directory_path();
-    TxtService txtService = TxtService(ioService, systemTempPathDirectory);
+    FileRepository fileRepository = FileRepository(ioService, systemTempPathDirectory);
 
     // Get command: URL & parameters
     CommandOption commandOption = CommandOption();
@@ -70,9 +70,10 @@ int main(int argc, const char *argv[])
             return 1;
         }
 
-        txtService.load(requestId + "_source");
-        txtService.write({webPageEntity.getBody()});
-        webPageEntity.setLocalStorageWebPagePath(txtService.getFilePath());
+        std::string fileName = requestId + "_source.html";
+        std::vector <std::string> fileContent = {webPageEntity.getBody()};
+        fileRepository.create(fileName, fileContent);
+        webPageEntity.setLocalStorageWebPagePath(fileRepository.getFilePath(fileName));
 
     } else if (command.hasOption("file") && !command.getOption("file").empty())
     {

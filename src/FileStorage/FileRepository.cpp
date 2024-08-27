@@ -1,13 +1,12 @@
-#include "TxtService.h"
+#include "FileRepository.h"
 
-TxtService::TxtService(IOService& ioService, std::filesystem::path& directoryPath)
+FileRepository::FileRepository(IOService& ioService, std::filesystem::path& directoryPath)
     : ioService(ioService), directoryPath(directoryPath)
 {
 }
 
-void TxtService::load(std::string fileName)
+void FileRepository::load(const std::string& fileName)
 {
-    this->fileName = fileName;
     filePath = directoryPath / fileName;
 
     if (!isFileWritable(filePath))
@@ -16,21 +15,21 @@ void TxtService::load(std::string fileName)
     }
 }
 
-bool TxtService::isFileWritable(std::string fileName)
+bool FileRepository::isFileWritable(const std::string& fileName)
 {
-    if (!fileWritable)
-    {
-        filePath = directoryPath / fileName;
-        std::ofstream file(filePath, std::ofstream::out | std::ofstream::app);
-        fileWritable = file.is_open();
-        file.close();
-    }
+    bool fileWritable = false;
+    filePath = directoryPath / fileName;
+    std::ofstream file(filePath, std::ofstream::out | std::ofstream::app);
+    fileWritable = file.is_open();
+    file.close();
     return fileWritable;
 }
 
 
-std::vector <std::string> TxtService::read(std::optional<int> limitOpt)
+std::vector <std::string> FileRepository::read(const std::string& fileName, std::optional<int> limitOpt)
 {
+    load(fileName);
+
     int limit = limitOpt.value_or(10000); // Use 10000 as default value
     std::vector<std::string> data;
     // data.reserve(limit); // Reserve space for n elements
@@ -45,8 +44,10 @@ std::vector <std::string> TxtService::read(std::optional<int> limitOpt)
     return data;
 }
 
-void TxtService::write(std::vector <std::string> data)
+void FileRepository::create(const std::string& fileName, std::vector <std::string>& data)
 {
+    load(fileName);
+
     std::ofstream file(filePath, std::ofstream::out);
 
     for (const auto& line : data) {
@@ -57,8 +58,10 @@ void TxtService::write(std::vector <std::string> data)
     file.close();
 }
 
-void TxtService::append(std::vector <std::string> data)
+void FileRepository::append(const std::string& fileName, std::vector <std::string> data)
 {
+    load(fileName);
+
     std::ofstream file(filePath, std::ios::app);
 
     for (const auto& line : data) {
@@ -69,18 +72,17 @@ void TxtService::append(std::vector <std::string> data)
     file.close();
 }
 
-void TxtService::empty()
+void FileRepository::empty(const std::string& fileName)
 {
+    load(fileName);
+
     std::ofstream file(filePath, std::ofstream::out);
     file.close();
 }
 
-std::string TxtService::getFileName() const
+std::filesystem::path FileRepository::getFilePath(const std::string& fileName)
 {
-    return fileName;
-}
+    load(fileName);
 
-std::filesystem::path TxtService::getFilePath() const
-{
     return filePath;
 }
