@@ -27,7 +27,7 @@ std::string Tags::parseContent()
 
     for (std::string tag : tagsToParse)
     {
-        webPageService.parseTag(webPageEntity.getBody(), tag, webPageTagEntities);
+        webPageService.parseTag(*webPageEntity.getBody(), tag, webPageTagEntities);
     }
 
     for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {

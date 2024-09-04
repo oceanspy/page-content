@@ -71,7 +71,7 @@ int main(int argc, const char *argv[])
         }
 
         std::string fileName = requestId + "_source.html";
-        std::vector <std::string> fileContent = {webPageEntity.getBody()};
+        std::vector <std::string> fileContent = {*webPageEntity.getBody()};
         fileRepository.create(fileName, fileContent);
         webPageEntity.setLocalStorageWebPagePath(fileRepository.getFilePath(fileName));
 

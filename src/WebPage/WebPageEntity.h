@@ -29,16 +29,16 @@ public:
     void setReason(const std::string& reason);
     void setErrorMessage(const std::string& errorMessage);
 
-    const std::string getUrl();
-    const std::filesystem::path getLocalStorageWebPagePath();
-    const std::string getHost();
-    const int getPort();
-    const std::string getPath();
-    const int getStatus();
-    const std::string getBody();
-    const std::vector<std::pair<std::string, std::string>> getHeaders();
-    const std::string getReason();
-    const std::string getErrorMessage();
+    const std::string * getUrl();
+    const std::filesystem::path * getLocalStorageWebPagePath();
+    const std::string * getHost();
+    const int * getPort();
+    const std::string * getPath();
+    const int * getStatus();
+    const std::string * getBody();
+    const std::vector<std::pair<std::string, std::string>> * getHeaders();
+    const std::string * getReason();
+    const std::string * getErrorMessage();
 private:
     std::string url;
     std::filesystem::path localStorageWebPagePath;

@@ -75,54 +75,54 @@ void WebPageEntity::setErrorMessage(const std::string& errorMessage)
     this->errorMessage = errorMessage;
 }
 
-const std::string WebPageEntity::getUrl()
+const std::string * WebPageEntity::getUrl()
 {
-    return url;
+    return &url;
 }
 
-const std::string WebPageEntity::getHost()
+const std::string * WebPageEntity::getHost()
 {
-    return host;
+    return &host;
 }
 
-const int WebPageEntity::getPort()
+const int * WebPageEntity::getPort()
 {
-    return port;
+    return &port;
 }
 
-const std::string WebPageEntity::getPath()
+const std::string * WebPageEntity::getPath()
 {
-    return path;
+    return &path;
 }
 
-const std::filesystem::path WebPageEntity::getLocalStorageWebPagePath()
+const std::filesystem::path * WebPageEntity::getLocalStorageWebPagePath()
 {
-    return localStorageWebPagePath;
+    return &localStorageWebPagePath;
 }
 
-const int WebPageEntity::getStatus()
+const int * WebPageEntity::getStatus()
 {
-    return status;
+    return &status;
 }
 
-const std::string WebPageEntity::getBody()
+const std::string * WebPageEntity::getBody()
 {
-    return body;
+    return &body;
 }
 
-const std::vector<std::pair<std::string, std::string>> WebPageEntity::getHeaders()
+const std::vector<std::pair<std::string, std::string>> * WebPageEntity::getHeaders()
 {
-    return headers;
+    return &headers;
 }
 
-const std::string WebPageEntity::getReason()
+const std::string * WebPageEntity::getReason()
 {
-    return reason;
+    return &reason;
 }
 
-const std::string WebPageEntity::getErrorMessage()
+const std::string * WebPageEntity::getErrorMessage()
 {
-    return errorMessage;
+    return &errorMessage;
 }
 
 

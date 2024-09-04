@@ -25,9 +25,9 @@ std::string Links::parseContent()
     std::string linksStr;
     std::vector <WebPageTagEntity> webPageTagEntities;
 
-    webPageService.parseTag(webPageEntity.getBody(), "a", webPageTagEntities);
-    webPageService.parseTag(webPageEntity.getBody(), "button", webPageTagEntities);
-    webPageService.parseTag(webPageEntity.getBody(), "form", webPageTagEntities);
+    webPageService.parseTag(*webPageEntity.getBody(), "a", webPageTagEntities);
+    webPageService.parseTag(*webPageEntity.getBody(), "button", webPageTagEntities);
+    webPageService.parseTag(*webPageEntity.getBody(), "form", webPageTagEntities);
 
     linksStr += "\n";
     for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
