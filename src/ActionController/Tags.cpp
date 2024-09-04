@@ -1,6 +1,6 @@
 #include "Tags.h"
 
-Tags::Tags(IOService& ioService, WebPageService& webPageService, WebPageEntity& webPageEntity, std::vector <std::string> tagsToParse)
+Tags::Tags(IOService& ioService, WebPageService& webPageService, WebPageEntity& webPageEntity, std::vector <std::string>& tagsToParse)
     : ActionAbstract(ioService), ioService(ioService), webPageService(webPageService), webPageEntity(webPageEntity), tagsToParse(tagsToParse)
 {
 }
@@ -25,14 +25,14 @@ std::string Tags::parseContent()
     std::string tagsStr;
     std::vector <WebPageTagEntity> webPageTagEntities;
 
-    for (std::string tag : tagsToParse)
+    for (const std::string& tag : tagsToParse)
     {
         webPageService.parseTag(*webPageEntity.getBody(), tag, webPageTagEntities);
     }
 
     for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
         tagsStr += StringHelpers::colorize(*webPageTagEntity.getTag(), YELLOW) + " > ";
-        if ((*webPageTagEntity.getTxtInnerValue()).size() > 0)
+        if (!(*webPageTagEntity.getTxtInnerValue()).empty())
         {
             tagsStr += StringHelpers::colorize(
                                     StringHelpers::removeLineBreaks(

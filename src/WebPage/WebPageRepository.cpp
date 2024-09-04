@@ -17,7 +17,7 @@ void WebPageRepository::load(const std::string& fileName)
 
 bool WebPageRepository::isFileWritable(const std::string& fileName)
 {
-    bool fileWritable = false;
+    bool fileWritable;
     filePath = directoryPath / fileName;
     std::ofstream file(filePath, std::ofstream::out | std::ofstream::app);
     fileWritable = file.is_open();
@@ -58,7 +58,7 @@ void WebPageRepository::create(const std::string& fileName, std::vector <std::st
     file.close();
 }
 
-void WebPageRepository::append(const std::string& fileName, std::vector <std::string> data)
+void WebPageRepository::append(const std::string& fileName, const std::vector <std::string>& data)
 {
     load(fileName);
 

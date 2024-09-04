@@ -17,7 +17,7 @@ public:
     bool isFileWritable(const std::string& fileName);
     std::vector <std::string> read(const std::string& fileName, std::optional<int> limitOpt);
     void create(const std::string& fileName, std::vector <std::string>& data); 
-    void append(const std::string& fileName, std::vector <std::string> data);
+    void append(const std::string& fileName, const std::vector <std::string>& data);
     void empty(const std::string& fileName);
     [[nodiscard]] std::filesystem::path getFilePath(const std::string& fileName);
 private:

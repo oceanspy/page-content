@@ -49,7 +49,7 @@ WebPageEntity WebPageService::loadFromUrl(std::string url, int port)
     return webPageEntity;
 }
 
-WebPageEntity WebPageService::loadFromFile(std::filesystem::path filePath)
+WebPageEntity WebPageService::loadFromFile(const std::filesystem::path& filePath)
 {
     std::ifstream ifs(filePath);
     std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));

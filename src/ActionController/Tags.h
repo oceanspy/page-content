@@ -11,13 +11,13 @@
 
 class Tags : public ActionInterface, public ActionAbstract {
 public:
-    Tags(IOService& ioService, WebPageService& webPageService, WebPageEntity& webPageEntity, std::vector <std::string> tagsToParse);
+    Tags(IOService& ioService, WebPageService& webPageService, WebPageEntity& webPageEntity, std::vector <std::string>& ToParse);
     void execute() override;
 private:
     IOService& ioService;
     WebPageService& webPageService;
     WebPageEntity& webPageEntity;
-    std::vector <std::string> tagsToParse;
+    std::vector <std::string>& tagsToParse;
     std::string parseContent();
 };
 
