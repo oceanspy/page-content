@@ -21,12 +21,12 @@ public:
     void setTxtInnerValue(const std::string& value);
     void setRawInnerValue(const std::string& value);
     void addAttribute(const std::string& name, const std::string& value);
-    const std::string& getTag();
-    const std::string& getTxtInnerValue();
-    const std::string& getRawInnerValue();
+    const std::string * getTag();
+    const std::string * getTxtInnerValue();
+    const std::string * getRawInnerValue();
     bool hasAttribute(const std::string& name);
-    const std::string getAttribute(const std::string& name);
-    const std::vector<Attribute> getAttributes();
+    const std::string * getAttribute(const std::string& name);
+    const std::vector<Attribute> * getAttributes();
 private:
     std::string tag;
     std::string txtInnerValue;

@@ -31,22 +31,22 @@ std::string Tags::parseContent()
     }
 
     for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
-        tagsStr += StringHelpers::colorize(webPageTagEntity.getTag(), YELLOW) + " > ";
-        if (webPageTagEntity.getTxtInnerValue().size() > 0)
+        tagsStr += StringHelpers::colorize(*webPageTagEntity.getTag(), YELLOW) + " > ";
+        if ((*webPageTagEntity.getTxtInnerValue()).size() > 0)
         {
             tagsStr += StringHelpers::colorize(
                                     StringHelpers::removeLineBreaks(
-                                        StringHelpers::removeExtraSpaces(webPageTagEntity.getTxtInnerValue())
+                                        StringHelpers::removeExtraSpaces(*webPageTagEntity.getTxtInnerValue())
                                         ),
                                     BLUE
                                     );
             tagsStr += ": ";
         } else {
-            tagsStr += StringHelpers::removeExtraSpaces(webPageTagEntity.getRawInnerValue());
+            tagsStr += StringHelpers::removeExtraSpaces(*webPageTagEntity.getRawInnerValue());
             tagsStr += ": ";
         }
 
-        for (auto& [key, value] : webPageTagEntity.getAttributes())
+        for (auto& [key, value] : *webPageTagEntity.getAttributes())
         {
             tagsStr += "[" + StringHelpers::colorize(key, RED) + "] ";
             tagsStr += value;

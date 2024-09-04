@@ -31,10 +31,10 @@ std::string Links::parseContent()
 
     linksStr += "\n";
     for (WebPageTagEntity& webPageTagEntity : webPageTagEntities) {
-        linksStr += StringHelpers::colorize(webPageTagEntity.getTag(), YELLOW) + " > ";
+        linksStr += StringHelpers::colorize(*webPageTagEntity.getTag(), YELLOW) + " > ";
         linksStr += StringHelpers::colorize(
                         StringHelpers::removeLineBreaks(
-                            StringHelpers::removeExtraSpaces(webPageTagEntity.getTxtInnerValue())
+                            StringHelpers::removeExtraSpaces(*webPageTagEntity.getTxtInnerValue())
                             ),
                         BLUE
                         );
@@ -42,17 +42,17 @@ std::string Links::parseContent()
         if (webPageTagEntity.hasAttribute("href"))
         {
             linksStr += "[" + StringHelpers::colorize("href", RED) + "] ";
-            linksStr += webPageTagEntity.getAttribute("href") + " ";
+            linksStr += *webPageTagEntity.getAttribute("href") + " ";
         }
         if (webPageTagEntity.hasAttribute("src"))
         {
             linksStr += "[" + StringHelpers::colorize("src", RED) + "] ";
-            linksStr += webPageTagEntity.getAttribute("src") + " ";
+            linksStr += *webPageTagEntity.getAttribute("src") + " ";
         }
         if (webPageTagEntity.hasAttribute("action"))
         {
             linksStr += "[" + StringHelpers::colorize("action", RED) + "] ";
-            linksStr += webPageTagEntity.getAttribute("action") + " ";
+            linksStr += *webPageTagEntity.getAttribute("action") + " ";
         }
         linksStr += "\n";
     }

@@ -25,19 +25,19 @@ void WebPageTagEntity::addAttribute(const std::string& name, const std::string& 
     attributes.push_back({name, value});
 }
 
-const std::string& WebPageTagEntity::getTag()
+const std::string * WebPageTagEntity::getTag()
 {
-    return tag;
+    return &tag;
 }
 
-const std::string& WebPageTagEntity::getTxtInnerValue()
+const std::string * WebPageTagEntity::getTxtInnerValue()
 {
-    return txtInnerValue;
+    return &txtInnerValue;
 }
 
-const std::string& WebPageTagEntity::getRawInnerValue()
+const std::string * WebPageTagEntity::getRawInnerValue()
 {
-    return rawInnerValue;
+    return &rawInnerValue;
 }
 
 bool WebPageTagEntity::hasAttribute(const std::string& name)
@@ -47,19 +47,19 @@ bool WebPageTagEntity::hasAttribute(const std::string& name)
     });
 }
 
-const std::string WebPageTagEntity::getAttribute(const std::string& name)
+const std::string * WebPageTagEntity::getAttribute(const std::string& name)
 {
     for (const auto& attribute : attributes)
     {
         if (attribute.name == name)
         {
-            return attribute.value;
+            return &attribute.value;
         }
     }
-    return "";
+    return nullptr;
 }
 
-const std::vector<WebPageTagEntity::Attribute> WebPageTagEntity::getAttributes()
+const std::vector<WebPageTagEntity::Attribute> * WebPageTagEntity::getAttributes()
 {
-    return attributes;
+    return &attributes;
 }
